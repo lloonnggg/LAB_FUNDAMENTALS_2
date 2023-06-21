@@ -30,6 +30,41 @@ Game::~Game()
     SDL_Quit();
 }
 
+SDL_Texture* Game::loadImage(const string& filename)
+{
+    SDL_Surface* surface = IMG_Load(filename.c_str());
+    if (surface == nullptr)
+    {
+        cerr << "Failed to load image: " << IMG_GetError() << endl;
+        return nullptr;
+    }
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    return texture;
+}
+
+Mix_Music* Game::loadMusic(const string& filename)
+{
+    Mix_Music* music = Mix_LoadMUS(filename.c_str());
+    if (music == nullptr)
+    {
+        cerr << "Failed to load music: " << Mix_GetError() << endl;
+        return nullptr;
+    }
+    return music;
+}
+
+Mix_Chunk* Game::loadSoundEffect(const string& filename)
+{
+    Mix_Chunk* chunk = Mix_LoadWAV(filename.c_str());
+    if (chunk == nullptr)
+    {
+        cerr << "Failed to load sound effect: " << Mix_GetError() << endl;
+        return nullptr;
+    }
+    return chunk;
+}
+
 void Game::RunGameLoop()
 {
     bool quit = false;
