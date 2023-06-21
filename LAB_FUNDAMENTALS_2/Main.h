@@ -5,6 +5,7 @@
 #include<ctime>
 #include<Windows.h>
 #include<iostream>
+#include<vector>
 using namespace std;
 
 static int ScreenWidth = 800;
