@@ -8,13 +8,15 @@ private:
 	int PlayerY;
 	int PlayerW;
 	int PlayerH;
+	int PlayerVel;
 public:
-	Player(int PX, int PY, int PW, int PH)
+	Player(int PX, int PY, int PW, int PH, int PV)
 	{
 		PlayerX = PX;
 		PlayerY = PY;
 		PlayerW = PW;
 		PlayerH = PH;
+		PlayerVel = PV;
 	}
 	void HandlePlayerInput();
 };
