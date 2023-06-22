@@ -4,11 +4,11 @@ Game::Game()
 {
     // Initialize SDL and create window/renderer
     SDL_Init(SDL_INIT_VIDEO);
-    window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
+    window = SDL_CreateWindow("ASSIGNMENT 1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Create player object
-    player = new Player(0, 0, 32, 32);
+    player = new Player(0, 0, 50, 50, 7);
     assets = new Assets();
 
     // Create hazards
