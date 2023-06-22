@@ -16,4 +16,5 @@ public:
 		PlayerW = PW;
 		PlayerH = PH;
 	}
+	void HandlePlayerInput();
 };
