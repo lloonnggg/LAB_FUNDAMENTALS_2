@@ -134,7 +134,6 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="LoadAssets.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="State.cpp" />

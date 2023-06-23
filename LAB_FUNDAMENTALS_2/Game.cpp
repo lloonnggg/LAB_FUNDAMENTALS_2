@@ -62,7 +62,7 @@ void Game::Update()
 
 void Game::Render()
 {
-    LoadTexture();
+    assets->LoadTexture(renderer);
     // Clear the screen
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);

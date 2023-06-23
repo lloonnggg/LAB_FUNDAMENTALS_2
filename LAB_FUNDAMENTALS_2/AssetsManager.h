@@ -5,16 +5,29 @@ class Assets
 {
 public:
     string BackgroundIMG = "./Asset/stopscreen.png";
-    string PlayerIMG = "C./Asset/player.png";
+    string PlayerIMG = "./Asset/player.png";
     string HazardIMG = "./Asset/obstacle.png";
     string EnemyIMG = "./Asset/enemy.png";
     string BossIMG = "./Asset/boss.png";
-
     SDL_Texture* Background = nullptr;
     SDL_Texture* Player = nullptr;
     SDL_Texture* Hazard = nullptr;
     SDL_Texture* Enemy = nullptr;
     SDL_Texture* Boss = nullptr;
+    SDL_Rect PlayerRect;
+    SDL_Rect HazardRect;
+    SDL_Rect EnemyRect;
+    SDL_Rect BossRect;
+    
+    string PlayerBulletIMG = "C./Asset/player.png";
+    string EnemyBulletIMG = "./Asset/enemy.png";
+    string BossBulletIMG = "./Asset/boss.png";
+    SDL_Texture* PlayerBullet = nullptr;
+    SDL_Texture* EnemyBullet = nullptr;
+    SDL_Texture* BossBullet = nullptr;
+    SDL_Rect PlayerBulletRect;
+    SDL_Rect EnemyBulletRect;
+    SDL_Rect BossBulletRect;
 public:
     Assets(){}
     ~Assets()
@@ -24,6 +37,9 @@ public:
         SDL_DestroyTexture(Hazard);
         SDL_DestroyTexture(Enemy);
         SDL_DestroyTexture(Boss);
+        SDL_DestroyTexture(PlayerBullet);
+        SDL_DestroyTexture(EnemyBullet);
+        SDL_DestroyTexture(BossBullet);
     }
 
     SDL_Texture* loadImage(const string& filename, SDL_Renderer* renderer)
@@ -57,5 +73,28 @@ public:
             return nullptr;
         }
         return chunk;
+    }
+
+    void LoadTexture(SDL_Renderer* renderer)
+    {
+        Background = loadImage(BackgroundIMG, renderer);
+        Player = loadImage(PlayerIMG, renderer);
+        Enemy = loadImage(EnemyIMG, renderer);
+        Hazard = loadImage(HazardIMG, renderer);
+        Boss = loadImage(BossIMG, renderer);
+
+        PlayerBullet = loadImage(PlayerBulletIMG, renderer);
+        EnemyBullet = loadImage(EnemyBulletIMG, renderer);
+        BossBullet = loadImage(BossBulletIMG, renderer);
+    }
+
+    void LoadSound()
+    {
+
+    }
+
+    void LoadMusic()
+    {
+
     }
 };

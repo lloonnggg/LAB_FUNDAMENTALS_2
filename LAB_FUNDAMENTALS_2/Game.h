@@ -18,10 +18,6 @@ public:
     Game();
     ~Game();
 
-    void LoadTexture();
-    void LoadSoundEffect();
-    void LoadMusic();
-
     void RunGameLoop();
     void Update();
     void Render();
