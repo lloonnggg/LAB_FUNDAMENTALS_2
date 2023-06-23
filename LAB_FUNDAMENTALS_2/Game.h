@@ -12,6 +12,7 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
     Player* player;
+    PlayerBullet* playerbullet;
     Assets* assets;
     vector<Hazard*> hazards;
 public:
@@ -19,6 +20,6 @@ public:
     ~Game();
 
     void RunGameLoop();
-    void Update();
+    void Update(SDL_Event event);
     void Render();
 };

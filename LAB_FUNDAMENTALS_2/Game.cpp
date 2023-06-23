@@ -8,9 +8,8 @@ Game::Game()
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Create object
-    //int x = ScreenWidth / 2 - player->PlayerW / 2;
-    //int y = ScreenHeight * (3 / 4);
-    //player = new Player(x, y, 50, 50, 7, 5, player->PlayerX + player->Player_bullet_W / 2, player->PlayerY - player->Player_bullet_H, 20, 30, 10);
+    player = new Player(0, 0, 50, 50, 7, 5);
+    playerbullet = new PlayerBullet(0, 0, 20, 30, 10);
     assets = new Assets();
 
     // Create hazards
@@ -47,16 +46,25 @@ void Game::RunGameLoop()
         }
     
         // Update game state
-        Update();
+        Update(event);
     
         // Render game objects
         Render();
     }
 }
 
-void Game::Update()
+void Game::Update(SDL_Event event)
 {
     // Update player
+    if (event.type == SDL_KEYDOWN)
+    {
+        player->HandlePlayerInput(event.key.keysym.sym);
+    }
+    assets->PlayerRect->x = player->PlayerX;
+    assets->PlayerRect->y = player->PlayerY;
+    assets->PlayerRect->w = player->PlayerW;
+    assets->PlayerRect->h = player->PlayerH;
+
     // Update hazards
 }
 
@@ -68,6 +76,8 @@ void Game::Render()
     SDL_RenderClear(renderer);
 
     SDL_RenderCopy(renderer, assets->Background, NULL, NULL);
+    SDL_RenderCopy(renderer, assets->Player, NULL, assets->PlayerRect);
+    SDL_RenderCopy(renderer, assets->PlayerBullet, NULL, NULL);
     // Render player
 
     // Render hazards

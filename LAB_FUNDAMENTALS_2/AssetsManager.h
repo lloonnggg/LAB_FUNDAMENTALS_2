@@ -14,14 +14,14 @@ public:
     SDL_Texture* Hazard = nullptr;
     SDL_Texture* Enemy = nullptr;
     SDL_Texture* Boss = nullptr;
-    SDL_Rect PlayerRect;
+    SDL_Rect* PlayerRect = new SDL_Rect();
     SDL_Rect HazardRect;
     SDL_Rect EnemyRect;
     SDL_Rect BossRect;
     
-    string PlayerBulletIMG = "C./Asset/player.png";
-    string EnemyBulletIMG = "./Asset/enemy.png";
-    string BossBulletIMG = "./Asset/boss.png";
+    string PlayerBulletIMG = "./Asset/player_bullet.png";
+    string EnemyBulletIMG = "./Asset/enemy_bullet.png";
+    string BossBulletIMG = "./Asset/boss_bullet.png";
     SDL_Texture* PlayerBullet = nullptr;
     SDL_Texture* EnemyBullet = nullptr;
     SDL_Texture* BossBullet = nullptr;
