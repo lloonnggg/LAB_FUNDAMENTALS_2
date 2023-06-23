@@ -3,7 +3,7 @@
 
 class Hazard
 {
-private:
+public:
 	int HazardX;
 	int HazardY;
 	int HazardW;

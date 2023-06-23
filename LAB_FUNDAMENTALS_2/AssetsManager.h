@@ -4,15 +4,17 @@
 class Assets
 {
 public:
-    string BackgroundIMG;
-    string PlayerIMG;
-    string HazardIMG;
-    string EnemyIMG;
+    string BackgroundIMG = "./Asset/stopscreen.png";
+    string PlayerIMG = "C./Asset/player.png";
+    string HazardIMG = "./Asset/obstacle.png";
+    string EnemyIMG = "./Asset/enemy.png";
+    string BossIMG = "./Asset/boss.png";
 
     SDL_Texture* Background = nullptr;
     SDL_Texture* Player = nullptr;
     SDL_Texture* Hazard = nullptr;
     SDL_Texture* Enemy = nullptr;
+    SDL_Texture* Boss = nullptr;
 public:
     Assets(){}
     ~Assets()
@@ -21,7 +23,7 @@ public:
         SDL_DestroyTexture(Player);
         SDL_DestroyTexture(Hazard);
         SDL_DestroyTexture(Enemy);
-
+        SDL_DestroyTexture(Boss);
     }
 
     SDL_Texture* loadImage(const string& filename, SDL_Renderer* renderer)

@@ -8,7 +8,9 @@ Game::Game()
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Create object
-    player = new Player(0, 0, 50, 50, 7);
+    //int x = ScreenWidth / 2 - player->PlayerW / 2;
+    //int y = ScreenHeight * (3 / 4);
+    //player = new Player(x, y, 50, 50, 7, 5, player->PlayerX + player->Player_bullet_W / 2, player->PlayerY - player->Player_bullet_H, 20, 30, 10);
     assets = new Assets();
 
     // Create hazards
@@ -60,10 +62,12 @@ void Game::Update()
 
 void Game::Render()
 {
+    LoadTexture();
     // Clear the screen
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
+    SDL_RenderCopy(renderer, assets->Background, NULL, NULL);
     // Render player
 
     // Render hazards
