@@ -1,8 +1,6 @@
 #pragma once
 #include"Main.h"
-#include"Player.h"
-#include"Hazard.h"
-#include"AssetsManager.h"
+#include"State.h"
 
 class Game
 {
@@ -11,13 +9,15 @@ private:
 	int ScreenHeight = 600;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-    Player* player;
-    PlayerBullet* playerbullet;
-    Assets* assets;
-    vector<Hazard*> hazards;
+
+    TitleState titlestate;
+    GameState gamestate;
+    PauseState pausestate;
+    WinState winstate;
+    LoseState losestate;
+    StateMachine stateMachine;
 public:
     Game();
-    ~Game();
 
     void RunGameLoop();
     void Update(SDL_Event event);

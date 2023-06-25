@@ -1,26 +1,26 @@
 #include"Player.h"
 
-void Player::HandlePlayerInput(SDL_Keycode key)
+void Player::HandlePlayerInput()
 {
-	if (key == SDLK_w)
+	if (KeyDown(SDL_SCANCODE_W))
 	{
 		PlayerY -= PlayerVel;
 	}
-	else if (key == SDLK_s)
+	else if (KeyDown(SDL_SCANCODE_S))
 	{
 		PlayerY += PlayerVel;
 	}
 
-	if (key == SDLK_a)
+	if (KeyDown(SDL_SCANCODE_A))
 	{
 		PlayerX -= PlayerVel;
 	}
-	else if (key == SDLK_d)
+	else if (KeyDown(SDL_SCANCODE_D))
 	{
 		PlayerX += PlayerVel;
 	}
 
-	if (key == SDLK_SPACE)
+	if (KeyDown(SDL_SCANCODE_SPACE))
 	{
 		Shoot = true;
 	}

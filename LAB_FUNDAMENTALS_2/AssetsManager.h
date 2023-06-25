@@ -15,9 +15,9 @@ public:
     SDL_Texture* Enemy = nullptr;
     SDL_Texture* Boss = nullptr;
     SDL_Rect* PlayerRect = new SDL_Rect();
-    SDL_Rect HazardRect;
-    SDL_Rect EnemyRect;
-    SDL_Rect BossRect;
+    SDL_Rect* HazardRect = new SDL_Rect();
+    SDL_Rect* EnemyRect = new SDL_Rect();
+    SDL_Rect* BossRect = new SDL_Rect();
     
     string PlayerBulletIMG = "./Asset/player_bullet.png";
     string EnemyBulletIMG = "./Asset/enemy_bullet.png";
@@ -25,9 +25,9 @@ public:
     SDL_Texture* PlayerBullet = nullptr;
     SDL_Texture* EnemyBullet = nullptr;
     SDL_Texture* BossBullet = nullptr;
-    SDL_Rect PlayerBulletRect;
-    SDL_Rect EnemyBulletRect;
-    SDL_Rect BossBulletRect;
+    SDL_Rect* PlayerBulletRect = new SDL_Rect();
+    SDL_Rect* EnemyBulletRect = new SDL_Rect();
+    SDL_Rect* BossBulletRect = new SDL_Rect();
 public:
     Assets(){}
     ~Assets()

@@ -11,6 +11,7 @@ public:
 	int PlayerVel;
 	int PlayerHP;
 	bool Shoot = false;
+	const Uint8* m_iKeystates;
 public:
 	Player(int PX, int PY, int PW, int PH, int PV, int PHp)
 	{
@@ -21,7 +22,19 @@ public:
 		PlayerVel = PV;
 		PlayerHP = PHp;
 	}
-	void HandlePlayerInput(SDL_Keycode key);
+
+	bool KeyDown(SDL_Scancode key)
+	{
+		if (m_iKeystates != nullptr)
+		{
+			if (m_iKeystates[key] == 1)
+				return true;
+			else
+				return false;
+		}
+		return false;
+	}
+	void HandlePlayerInput();
 };
 
 
