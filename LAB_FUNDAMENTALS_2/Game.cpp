@@ -56,10 +56,6 @@ void Game::RunGameLoop()
 void Game::Update(SDL_Event event)
 {
     // Update player
-    if (event.type == SDL_KEYDOWN)
-    {
-        player->HandlePlayerInput(event.key.keysym.sym);
-    }
     assets->PlayerRect->x = player->PlayerX;
     assets->PlayerRect->y = player->PlayerY;
     assets->PlayerRect->w = player->PlayerW;

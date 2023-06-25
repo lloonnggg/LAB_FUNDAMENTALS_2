@@ -51,14 +51,36 @@ public:
     void render() override;
 };
 
-class StateMachine 
+class StateMachine
 {
 private:
     State* currentState;
+    TitleState titleState;
+    GameState gameState;
+    PauseState pauseState;
+    LoseState loseState;
+    WinState winState;
 
 public:
     StateMachine() : currentState(nullptr) {}
-    void changeState(State* state);
-    void update();
-    void render();
+
+    void changeState(State* state)
+    {
+        currentState = state;
+    }
+
+    void handleInput(SDL_Event& e)
+    {
+        currentState->handleInput(e);
+    }
+
+    void update()
+    {
+        currentState->update();
+    }
+
+    void render()
+    {
+        currentState->render();
+    }
 };

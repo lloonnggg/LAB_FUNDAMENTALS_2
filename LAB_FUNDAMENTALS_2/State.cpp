@@ -76,27 +76,3 @@ void WinState::render()
 {
     // Render anything you want but keep it clean
 }
-
-void StateMachine::changeState(State* state) 
-{
-    // Implement the state change logic here
-    currentState = state;
-}
-
-void StateMachine::update() 
-{
-    // Implement update logic here
-    if (currentState) 
-    {
-        currentState->update();
-    }
-}
-
-void StateMachine::render() 
-{
-    // Implement render logic here
-    if (currentState) 
-    {
-        currentState->render();
-    }
-}
