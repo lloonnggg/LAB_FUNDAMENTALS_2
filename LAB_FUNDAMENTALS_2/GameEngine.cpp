@@ -1,4 +1,4 @@
-#include"Game.h"
+#include"GameEngine.h"
 
 Game::Game()
 {
@@ -6,17 +6,6 @@ Game::Game()
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-
-    // Create States:
-    //titlestate = new TitleState();
-    //gamestate = new GameState();
-    //pausestate = new PauseState();
-    //winstate = new WinState();
-    //losestate = new LoseState();
-    //stateMachine = new StateMachine();
-
-    // Create hazards
-    
 }
 
 void Game::RunGameLoop()
@@ -32,24 +21,26 @@ void Game::RunGameLoop()
                 quit = true;
         }
     
-        // Update game state
+        // Update game
         Update(event);
     
-        // Render game objects
+        // Render game
         Render();
     }
 }
 
 void Game::Update(SDL_Event event)
 {
+    stateMachine.changeState(&gamestate);
+    gamestate.handleInput(event);
+    stateMachine.update();
 
 }
 
 void Game::Render()
 {
-    // Clear the screen
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
+
     stateMachine.changeState(&gamestate);
     stateMachine.render(renderer);
 

@@ -10,8 +10,15 @@ public:
 	int PlayerH;
 	int PlayerVel;
 	int PlayerHP;
-	bool Shoot = false;
-	const Uint8* m_iKeystates;
+	struct PlayerBullet
+	{
+		int Player_bullet_X;
+		int Player_bullet_Y;
+		int Player_bullet_W = 20;
+		int Player_bullet_H = 30;
+		int Player_bullet_Vel = 10;
+	};
+	PlayerBullet Pbullet;
 public:
 	Player(int PX, int PY, int PW, int PH, int PV, int PHp)
 	{
@@ -22,37 +29,41 @@ public:
 		PlayerVel = PV;
 		PlayerHP = PHp;
 	}
-
-	bool KeyDown(SDL_Scancode key)
+	void HandlePlayerInput(SDL_Event event)
 	{
-		if (m_iKeystates != nullptr)
+		if (event.type == SDL_KEYDOWN) 
 		{
-			if (m_iKeystates[key] == 1)
-				return true;
-			else
-				return false;
+			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+
+			if (currentKeyStates[SDL_SCANCODE_UP]) 
+			{
+				if (PlayerY - PlayerVel >= 0) 
+				{
+					PlayerY -= PlayerVel;
+				}
+			}
+			else if (currentKeyStates[SDL_SCANCODE_DOWN]) 
+			{
+				if (PlayerY + PlayerVel < ScreenHeight-PlayerH) 
+				{
+					PlayerY += PlayerVel;
+				}
+			}
+
+			if (currentKeyStates[SDL_SCANCODE_LEFT]) 
+			{
+				if (PlayerX - PlayerVel >= 0) 
+				{
+					PlayerX -= PlayerVel;
+				}
+			}
+			else if (currentKeyStates[SDL_SCANCODE_RIGHT]) 
+			{
+				if (PlayerX + PlayerVel < ScreenWidth-PlayerW) 
+				{
+					PlayerX += PlayerVel;
+				}
+			}
 		}
-		return false;
-	}
-	void HandlePlayerInput();
-};
-
-
-class PlayerBullet
-{
-public:
-	int Player_bullet_X;
-	int Player_bullet_Y;
-	int Player_bullet_W;
-	int Player_bullet_H;
-	int Player_bullet_Vel;
-public:
-	PlayerBullet(int PBX, int PBY, int PBW, int PBH, int PBV)
-	{
-		Player_bullet_X = PBX;
-		Player_bullet_Y = PBY;
-		Player_bullet_W = PBW;
-		Player_bullet_H = PBH;
-		Player_bullet_Vel = PBV;
 	}
 };

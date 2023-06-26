@@ -3,14 +3,16 @@
 #include"Player.h"
 #include"AssetsManager.h"
 #include"Hazard.h"
+#include"Threats.h"
 
 //Abstract class
 class State 
 {
 public:
-    virtual void handleInput(SDL_Event& e) = 0;
+    virtual void handleInput(SDL_Event e) = 0;
     virtual void update() = 0;
     virtual void render(SDL_Renderer* renderer) = 0;
+    virtual void changestate() = 0;
     virtual ~State() {}
 };
 
@@ -24,9 +26,10 @@ public:
     {
         assets = new Assets();
     }
-    void handleInput(SDL_Event& e) override;
+    void handleInput(SDL_Event e) override;
     void update() override;
     void render(SDL_Renderer* renderer) override;
+    void changestate() override;
 };
 
 class GameState : public State 
@@ -34,21 +37,50 @@ class GameState : public State
 public:
     Assets* assets;
     Player* player;
-    PlayerBullet* playerbullet;
-    vector<Hazard*> hazards;
+    Hazard* hazard[2];
+    int maxHazards = 2;
+    Mobs* mob[5];
+    int maxMobs = 5;
+    Boss* boss;
 public:
     GameState()
     {
         assets = new Assets();
-        player = new Player(0, 0, 50, 50, 7, 5);
-        playerbullet = new PlayerBullet(0, 0, 20, 30, 10);
+        player = new Player(ScreenWidth / 2, ScreenHeight * 3 / 4, 50, 50, 7, 5);
 
-        hazards.push_back(new Hazard(100, 100, 20, 20));
-        hazards.push_back(new Hazard(200, 200, 30, 30));
+        //hazards and mobs generator
+        for (int i = 0; i < maxHazards; i++)
+        {
+            hazard[i] = new Hazard();
+            hazard[i]->HazardCoordinateGenerator(i);
+            hazard[i]->HazardW = 50;
+            hazard[i]->HazardH = 50;
+        }
+        for (int i = 0; i < maxMobs; i++)
+        {
+            //if (i < 2)
+            //{
+            //    hazard[i] = new Hazard();   
+            //    hazard[i]->HazardCoordinateGenerator(i);
+            //    hazard[i]->HazardW = 50;
+            //    hazard[i]->HazardH = 50;
+            //    //if (i > 0 && (hazard[i]->HazardX == hazard[i - 1]->HazardX || hazard[i]->HazardY == hazard[i - 1]->HazardY)) 
+            //    //{
+            //    //    i--;  // Retry generating positions for the current Hazard
+            //    //    continue;
+            //    //}
+            //}
+
+            mob[i] = new Mobs();
+            mob[i]->MobCoordinateGenerator(i);
+            mob[i]->MobW = 30;
+            mob[i]->MobH = 30;
+        }
     }
-    void handleInput(SDL_Event& e) override;
+    void handleInput(SDL_Event e) override;
     void update() override;
     void render(SDL_Renderer* renderer) override;
+    void changestate() override;
 };
 
 class PauseState : public State 
@@ -60,9 +92,10 @@ public:
     {
         assets = new Assets();
     }
-    void handleInput(SDL_Event& e) override;
+    void handleInput(SDL_Event e) override;
     void update() override;
     void render(SDL_Renderer* renderer) override;
+    void changestate() override;
 };
 
 class LoseState : public State 
@@ -74,9 +107,10 @@ public:
     {
         assets = new Assets();
     }
-    void handleInput(SDL_Event& e) override;
+    void handleInput(SDL_Event e) override;
     void update() override;
     void render(SDL_Renderer* renderer) override;
+    void changestate() override;
 };
 
 class WinState : public State 
@@ -88,14 +122,15 @@ public:
     {
         assets = new Assets();
     }
-    void handleInput(SDL_Event& e) override;
+    void handleInput(SDL_Event e) override;
     void update() override;
     void render(SDL_Renderer* renderer) override;
+    void changestate() override;
 };
 
 class StateMachine
 {
-private:
+public:
     State* currentState;
     TitleState titleState;
     GameState gameState;
