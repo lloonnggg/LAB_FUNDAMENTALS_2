@@ -12,7 +12,12 @@ void TitleState::update()
 void TitleState::render(SDL_Renderer* renderer)
 {
     assets->LoadTexture(renderer);
-    SDL_RenderCopy(renderer, assets->Background, NULL, NULL);
+    SDL_RenderCopy(renderer, assets->StopScreen, NULL, NULL);
+    assets->GameNameRect->x = ScreenWidth / 2 - (assets->GameNameRect->w / 2);
+    assets->GameNameRect->y = ScreenHeight / 4;
+    assets->GameNameRect->w = 300;
+    assets->GameNameRect->h = 100;
+    SDL_RenderCopy(renderer, assets->GameName, NULL, assets->GameNameRect);
 }
 void TitleState::changestate()
 {
@@ -130,20 +135,22 @@ void GameState::update()
 }
 void GameState::render(SDL_Renderer* renderer) 
 {
+    assets->ScrollingBG(renderer, assets->BackgroundIMG);
     assets->LoadTexture(renderer);
+
+    //--------------------PLAYER--------------------
     assets->PlayerRect->x = player->PlayerX;
     assets->PlayerRect->y = player->PlayerY;
     assets->PlayerRect->w = player->PlayerW;
     assets->PlayerRect->h = player->PlayerH;
-
     assets->PlayerBulletRect->x = player->PlayerX;
     assets->PlayerBulletRect->y = player->PlayerY;
     assets->PlayerBulletRect->w = player->PlayerW;
     assets->PlayerBulletRect->h = player->PlayerH;
-    SDL_RenderCopy(renderer, assets->Background, NULL, NULL);
     SDL_RenderCopy(renderer, assets->Player, NULL, assets->PlayerRect);
     SDL_RenderCopy(renderer, assets->PlayerBullet, NULL, assets->PlayerBulletRect);
 
+    //--------------------HAZARD--------------------
     for (int i = 0; i < maxHazards; i++)
     {
         assets->HazardRect[i].x = hazard[i]->HazardX;
@@ -152,13 +159,20 @@ void GameState::render(SDL_Renderer* renderer)
         assets->HazardRect[i].x = hazard[i]->HazardH;
         SDL_RenderCopy(renderer, assets->Hazard, NULL, assets->HazardRect);
     }
+
+    //--------------------THREATS--------------------
     for (int i = 0; i < maxMobs; i++)
     {
         assets->EnemyRect[i].x = mob[i]->MobX;
         assets->EnemyRect[i].y = mob[i]->MobY;
         assets->EnemyRect[i].w = mob[i]->MobW;
         assets->EnemyRect[i].h = mob[i]->MobH;
+        assets->EnemyBulletRect[i].x = mob[i]->MobX;
+        assets->EnemyBulletRect[i].y = mob[i]->MobY;
+        assets->EnemyBulletRect[i].w = mob[i]->MobW;
+        assets->EnemyBulletRect[i].h = mob[i]->MobH;
         SDL_RenderCopy(renderer, assets->Enemy, NULL, assets->EnemyRect);
+        SDL_RenderCopy(renderer, assets->EnemyBullet, NULL, assets->EnemyBulletRect);
     }
 }
 void GameState::changestate()
@@ -180,7 +194,13 @@ void PauseState::update()
 }
 void PauseState::render(SDL_Renderer* renderer)
 {
-    // Render a transparent rectangle over the game state and a Resume button
+    assets->LoadTexture(renderer);
+    SDL_RenderCopy(renderer, assets->StopScreen, NULL, NULL);
+    assets->GameNameRect->x = ScreenWidth / 2 - (assets->GameNameRect->w / 2);
+    assets->GameNameRect->y = ScreenHeight / 4;
+    assets->GameNameRect->w = 300;
+    assets->GameNameRect->h = 100;
+    SDL_RenderCopy(renderer, assets->GameName, NULL, assets->GameNameRect);
 }
 void PauseState::changestate()
 {
@@ -201,7 +221,13 @@ void LoseState::update()
 }
 void LoseState::render(SDL_Renderer* renderer)
 {
-    // Render anything you want but keep it clean
+    assets->LoadTexture(renderer);
+    SDL_RenderCopy(renderer, assets->StopScreen, NULL, NULL);
+    assets->GameOverRect->x = ScreenWidth / 2 - (assets->GameNameRect->w / 2);
+    assets->GameOverRect->y = ScreenHeight / 2 - (assets->GameNameRect->h / 2);
+    assets->GameOverRect->w = 300;
+    assets->GameOverRect->h = 100;
+    SDL_RenderCopy(renderer, assets->GameName, NULL, assets->GameOverRect);
 }
 void LoseState::changestate()
 {
@@ -222,7 +248,13 @@ void WinState::update()
 }
 void WinState::render(SDL_Renderer* renderer)
 {
-    // Render anything you want but keep it clean
+    assets->LoadTexture(renderer);
+    SDL_RenderCopy(renderer, assets->StopScreen, NULL, NULL);
+    assets->YouWinRect->x = ScreenWidth / 2 - (assets->GameNameRect->w / 2);
+    assets->YouWinRect->y = ScreenHeight / 2 - (assets->GameNameRect->h / 2);
+    assets->YouWinRect->w = 300;
+    assets->YouWinRect->h = 100;
+    SDL_RenderCopy(renderer, assets->GameName, NULL, assets->YouWinRect);
 }
 void WinState::changestate()
 {

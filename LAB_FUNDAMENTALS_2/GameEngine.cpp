@@ -31,9 +31,10 @@ void Game::RunGameLoop()
 
 void Game::Update(SDL_Event event)
 {
-    stateMachine.changeState(&gamestate);
-    gamestate.handleInput(event);
-    stateMachine.update();
+    stateMachine.changeState(&titlestate);
+    //stateMachine.changeState(&gamestate);
+    //gamestate.handleInput(event);
+    //stateMachine.update();
 
 }
 
@@ -41,8 +42,11 @@ void Game::Render()
 {
     SDL_RenderClear(renderer);
 
-    stateMachine.changeState(&gamestate);
-    stateMachine.render(renderer);
+    stateMachine.changeState(&titlestate);
+    titlestate.render(renderer);
+
+    //stateMachine.changeState(&gamestate);
+    //stateMachine.render(renderer);
 
     SDL_RenderPresent(renderer);
 }

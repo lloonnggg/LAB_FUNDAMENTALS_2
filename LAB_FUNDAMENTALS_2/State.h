@@ -58,19 +58,6 @@ public:
         }
         for (int i = 0; i < maxMobs; i++)
         {
-            //if (i < 2)
-            //{
-            //    hazard[i] = new Hazard();   
-            //    hazard[i]->HazardCoordinateGenerator(i);
-            //    hazard[i]->HazardW = 50;
-            //    hazard[i]->HazardH = 50;
-            //    //if (i > 0 && (hazard[i]->HazardX == hazard[i - 1]->HazardX || hazard[i]->HazardY == hazard[i - 1]->HazardY)) 
-            //    //{
-            //    //    i--;  // Retry generating positions for the current Hazard
-            //    //    continue;
-            //    //}
-            //}
-
             mob[i] = new Mobs();
             mob[i]->MobCoordinateGenerator(i);
             mob[i]->MobW = 30;

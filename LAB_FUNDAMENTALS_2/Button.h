@@ -1,25 +1,53 @@
 #pragma once
 #include"Main.h"
 
-class Button {
+class Button 
+{
 private:
-    SDL_Rect rect; // Rectangle representing the size and position of the button
-    SDL_Surface* normalState; // Surface for the normal state of the button
-    SDL_Surface* hoverState; // Surface for the hover state of the button
-    SDL_Surface* activeState; // Surface for the active state of the button
-    bool isHovered = false; // Flag to indicate if the button is currently being hovered over
-    bool isActive = false; // Flag to indicate if the button is currently active (pressed)
-
+    SDL_Renderer* renderer;
+    std::string imagePath;
+    SDL_Surface* surface;
+    SDL_Texture* texture;
+    int x;
+    int y;
+    int width;
+    int height;
+    bool isPressed;
 public:
-    // Constructor for Button class that initializes button with position, size and image paths for the three states
-    Button(int x, int y, int w, int h, const std::string& normalImagePath, const std::string& hoverImagePath, const std::string& activeImagePath);
+    Button(SDL_Renderer* renderer, const std::string& imagePath, int x, int y, int width, int height)
+        : renderer(renderer), imagePath(imagePath), x(x), y(y), width(width), height(height), isPressed(false) {
+        // Load the button image
+        surface = IMG_Load(imagePath.c_str());
+        if (surface != nullptr) {
+            texture = SDL_CreateTextureFromSurface(renderer, surface);
+        }
+    }
 
-    // Destructor for Button class that will free the surfaces when button object is destroyed
-    ~Button();
+    ~Button() {
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+    }
 
-    // Handle event function that takes an SDL_Event as input and updates the button state accordingly
-    void handleEvent(SDL_Event* e);
+    void render() {
+        // Render the button image
+        SDL_Rect buttonRect = { x, y, width, height };
+        SDL_RenderCopy(renderer, texture, nullptr, &buttonRect);
+    }
 
-    // Render function that takes an SDL_Surface as input and draws the button on it depending on the button state
-    void render(SDL_Surface* display);
+    bool isMouseInside(int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= (x + width) && mouseY >= y && mouseY <= (y + height);
+    }
+
+    void handleEvent(SDL_Event& e) {
+        if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
+            int mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+            isPressed = isMouseInside(mouseX, mouseY);
+        }
+    }
+
+    bool isButtonPressed() const {
+        return isPressed;
+    }
+
 };
