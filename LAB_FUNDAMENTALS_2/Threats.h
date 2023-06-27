@@ -14,9 +14,9 @@ public:
 	{
 		int Enemy_bullet_X;
 		int Enemy_bullet_Y;
-		int Enemy_bullet_W = 10;
-		int Enemy_bullet_H = 20;
-		int Enemy_bullet_Vel = 5;
+		int Enemy_bullet_W;
+		int Enemy_bullet_H;
+		int Enemy_bullet_Vel;
 	};
 	EnemyBullet Ebullet;
 public:
@@ -40,6 +40,12 @@ public:
 		}
 		MobX = X;
 		MobY = Y;
+	}
+
+	void GetEbulletCoordinate()
+	{
+		Ebullet.Enemy_bullet_X = MobX + MobW / 2 - Ebullet.Enemy_bullet_W / 2;
+		Ebullet.Enemy_bullet_Y = MobY + MobH;
 	}
 };
 

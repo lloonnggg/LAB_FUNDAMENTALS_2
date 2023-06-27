@@ -10,7 +10,7 @@ class State
 {
 public:
     virtual void handleInput(SDL_Event e) = 0;
-    virtual void update() = 0;
+    virtual void update(SDL_Event event) = 0;
     virtual void render(SDL_Renderer* renderer) = 0;
     virtual void changestate() = 0;
     virtual ~State() {}
@@ -27,7 +27,7 @@ public:
         assets = new Assets();
     }
     void handleInput(SDL_Event e) override;
-    void update() override;
+    void update(SDL_Event event) override;
     void render(SDL_Renderer* renderer) override;
     void changestate() override;
 };
@@ -37,35 +37,42 @@ class GameState : public State
 public:
     Assets* assets;
     Player* player;
-    Hazard* hazard[2];
+    Hazard hazard[2];
     int maxHazards = 2;
-    Mobs* mob[5];
+    Mobs mob[5];
     int maxMobs = 5;
     Boss* boss;
 public:
     GameState()
     {
         assets = new Assets();
-        player = new Player(ScreenWidth / 2, ScreenHeight * 3 / 4, 50, 50, 7, 5);
+        player = new Player(ScreenWidth / 2, ScreenHeight * 3 / 4, 50, 50, 10, 5);
 
         //hazards and mobs generator
         for (int i = 0; i < maxHazards; i++)
         {
-            hazard[i] = new Hazard();
-            hazard[i]->HazardCoordinateGenerator(i);
-            hazard[i]->HazardW = 50;
-            hazard[i]->HazardH = 50;
+            //hazard[i] = new Hazard();
+            hazard[i].HazardCoordinateGenerator(i);
+            hazard[i].HazardW = 70;
+            hazard[i].HazardH = 70;
+            hazard[i].HazardVel = 3;
         }
         for (int i = 0; i < maxMobs; i++)
         {
-            mob[i] = new Mobs();
-            mob[i]->MobCoordinateGenerator(i);
-            mob[i]->MobW = 30;
-            mob[i]->MobH = 30;
+            //mob[i] = new Mobs();
+            mob[i].MobCoordinateGenerator(i);
+            mob[i].MobW = 50;
+            mob[i].MobH = 50;
+            mob[i].MobVel = 5;
+
+            mob[i].GetEbulletCoordinate();
+            mob[i].Ebullet.Enemy_bullet_W = 40;
+            mob[i].Ebullet.Enemy_bullet_H = 40;
+            mob[i].Ebullet.Enemy_bullet_Vel = 12;
         }
     }
     void handleInput(SDL_Event e) override;
-    void update() override;
+    void update(SDL_Event event) override;
     void render(SDL_Renderer* renderer) override;
     void changestate() override;
 };
@@ -80,7 +87,7 @@ public:
         assets = new Assets();
     }
     void handleInput(SDL_Event e) override;
-    void update() override;
+    void update(SDL_Event event) override;
     void render(SDL_Renderer* renderer) override;
     void changestate() override;
 };
@@ -95,7 +102,7 @@ public:
         assets = new Assets();
     }
     void handleInput(SDL_Event e) override;
-    void update() override;
+    void update(SDL_Event event) override;
     void render(SDL_Renderer* renderer) override;
     void changestate() override;
 };
@@ -110,7 +117,7 @@ public:
         assets = new Assets();
     }
     void handleInput(SDL_Event e) override;
-    void update() override;
+    void update(SDL_Event event) override;
     void render(SDL_Renderer* renderer) override;
     void changestate() override;
 };
@@ -133,9 +140,9 @@ public:
         currentState = state;
     }
 
-    void update() 
+    void update(SDL_Event event)
     {
-        currentState->update();
+        currentState->update(event);
     }
 
     void render(SDL_Renderer* renderer) 

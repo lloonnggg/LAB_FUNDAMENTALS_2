@@ -6,9 +6,9 @@ class Hazard
 public:
 	int HazardX;
 	int HazardY;
-	int HazardW = 40;
-	int HazardH = 40;
-	int HazardVel = 3;
+	int HazardW;
+	int HazardH;
+	int HazardVel;
 public:
 	Hazard(){}
     void HazardCoordinateGenerator(int i)

@@ -1,6 +1,8 @@
 #pragma once
 #include"Main.h"
 #include"State.h"
+#include"AssetsManager.h"
+#include"Button.h"
 
 class Game
 {
@@ -9,13 +11,10 @@ private:
 	int ScreenHeight = 600;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-
-    TitleState titlestate;
-    GameState gamestate;
-    PauseState pausestate;
-    WinState winstate;
-    LoseState losestate;
+    Assets* assets;
+    
     StateMachine stateMachine;
+    UIButton titleButton;
 public:
     Game();
 

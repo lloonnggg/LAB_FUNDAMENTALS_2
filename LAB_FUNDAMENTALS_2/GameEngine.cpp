@@ -6,6 +6,8 @@ Game::Game()
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    UIButton* titleButton = new UIButton();
+    Assets* assets = new Assets();
 }
 
 void Game::RunGameLoop()
@@ -31,22 +33,16 @@ void Game::RunGameLoop()
 
 void Game::Update(SDL_Event event)
 {
-    stateMachine.changeState(&titlestate);
-    //stateMachine.changeState(&gamestate);
-    //gamestate.handleInput(event);
-    //stateMachine.update();
-
+    stateMachine.changeState(&stateMachine.gameState);
+    stateMachine.update(event);  
 }
 
 void Game::Render()
 {
     SDL_RenderClear(renderer);
 
-    stateMachine.changeState(&titlestate);
-    titlestate.render(renderer);
-
-    //stateMachine.changeState(&gamestate);
-    //stateMachine.render(renderer);
+    stateMachine.changeState(&stateMachine.gameState);
+    stateMachine.render(renderer);
 
     SDL_RenderPresent(renderer);
 }

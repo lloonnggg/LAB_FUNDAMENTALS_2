@@ -14,9 +14,9 @@ public:
 	{
 		int Player_bullet_X;
 		int Player_bullet_Y;
-		int Player_bullet_W = 20;
+		int Player_bullet_W = 10;
 		int Player_bullet_H = 30;
-		int Player_bullet_Vel = 10;
+		int Player_bullet_Vel = 15;
 	};
 	PlayerBullet Pbullet;
 public:
@@ -28,6 +28,11 @@ public:
 		PlayerH = PH;
 		PlayerVel = PV;
 		PlayerHP = PHp;
+	}
+	void GetBulletCoordinate()
+	{
+		Pbullet.Player_bullet_X = PlayerX + PlayerW / 2 - Pbullet.Player_bullet_W / 2;
+		Pbullet.Player_bullet_Y = PlayerY - Pbullet.Player_bullet_H;
 	}
 	void HandlePlayerInput(SDL_Event event)
 	{
