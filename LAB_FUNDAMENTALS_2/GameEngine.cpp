@@ -1,7 +1,7 @@
 #include"GameEngine.h"
 
 Game::Game()
-{
+{f
     // Initialize SDL and create window/renderer
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
